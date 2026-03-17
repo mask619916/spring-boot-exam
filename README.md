@@ -51,6 +51,16 @@ curl -X PUT http://localhost:8080/api/products/1 ^
 curl -X DELETE http://localhost:8080/api/products/1
 ```
 
+### 6. Search Products by Name Keyword
+```bash
+curl -X GET "http://localhost:8080/api/products/search?keyword=laptop"
+```
+
+### 7. Get Products by Category
+```bash
+curl -X GET http://localhost:8080/api/products/category/Electronics
+```
+
 ## Sample Responses
 
 ### GET /api/products (200 OK)
