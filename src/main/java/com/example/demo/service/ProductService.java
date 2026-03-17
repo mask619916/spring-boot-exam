@@ -23,16 +23,20 @@ public class ProductService {
 
     // TODO: Declare a private final ProductRepository field
 
+    private final ProductRepository productRepository;
 
     // TODO: Constructor that takes ProductRepository as parameter (constructor injection)
 
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     /**
      * Get all products.
      */
     public List<Product> getAllProducts() {
         // TODO: Delegate to repository
-        return null;
+            return productRepository.findAll();
     }
 
     /**
@@ -41,7 +45,7 @@ public class ProductService {
      */
     public Optional<Product> getProductById(Long id) {
         // TODO: Delegate to repository
-        return Optional.empty();
+            return productRepository.findById(id);
     }
 
     /**
@@ -50,7 +54,7 @@ public class ProductService {
      */
     public Product createProduct(Product product) {
         // TODO: Delegate to repository
-        return null;
+            return productRepository.save(product);
     }
 
     /**
@@ -64,7 +68,13 @@ public class ProductService {
         // TODO: If found, update its name, category, price, and quantity
         // TODO: Save and return the updated product
         // TODO: If not found, return Optional.empty()
-        return Optional.empty();
+            return productRepository.findById(id).map(existing -> {
+                existing.setName(updated.getName());
+                existing.setCategory(updated.getCategory());
+                existing.setPrice(updated.getPrice());
+                existing.setQuantity(updated.getQuantity());
+                return productRepository.save(existing);
+            });
     }
 
     /**
@@ -73,6 +83,6 @@ public class ProductService {
      */
     public boolean deleteProduct(Long id) {
         // TODO: Delegate to repository
-        return false;
+            return productRepository.deleteById(id);
     }
 }
