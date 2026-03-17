@@ -29,7 +29,8 @@ public class ProductRepository {
      */
     public List<Product> findAll() {
         // TODO: Return the full list of products
-        return null;
+
+        return new ArrayList<>(products);
     }
 
     /**
@@ -41,6 +42,12 @@ public class ProductRepository {
      */
     public Optional<Product> findById(Long id) {
         // TODO: Loop through products, find matching ID
+
+        for (Product product : products) {
+            if (product.getId().equals(id)) {
+                return Optional.of(product);
+            }
+        }
         return Optional.empty();
     }
 
@@ -53,7 +60,18 @@ public class ProductRepository {
      */
     public Product save(Product product) {
         // TODO: Implement save logic for both new and existing products
-        return null;
+        if (product.getId() == null) {
+            product.setId(nextId++);
+            products.add(product);
+        } else {
+            for (int i = 0; i < products.size(); i++) {
+                if (products.get(i).getId().equals(product.getId())) {
+                    products.set(i, product);
+                    break;
+                }
+            }
+        }
+        return product;
     }
 
     /**
@@ -64,6 +82,12 @@ public class ProductRepository {
      */
     public boolean deleteById(Long id) {
         // TODO: Find and remove the product with matching ID
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getId().equals(id)) {
+                products.remove(i);
+                return true;
+            }
+        }
         return false;
     }
 
@@ -72,6 +96,11 @@ public class ProductRepository {
      */
     public boolean existsById(Long id) {
         // TODO: Return true if a product with this ID exists in the list
+        for (Product product : products) {
+            if (product.getId().equals(id)) {
+                return true;
+            }
+        }
         return false;
     }
 }
