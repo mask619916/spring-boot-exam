@@ -103,4 +103,35 @@ public class ProductRepository {
         }
         return false;
     }
+    /**
+     * Find products whose name contains keyword (case-insensitive).
+     */
+    public List<Product> findByNameContaining(String keyword) {
+        List<Product> matches = new ArrayList<>();
+        String normalizedKeyword = keyword == null ? "" : keyword.toLowerCase();
+
+        for (Product product : products) {
+            String name = product.getName();
+            if (name != null && name.toLowerCase().contains(normalizedKeyword)) {
+                matches.add(product);
+            }
+        }
+        return matches;
+    }
+
+    /**
+     * Find products by category (case-insensitive).
+     */
+    public List<Product> findByCategory(String category) {
+        List<Product> matches = new ArrayList<>();
+        String normalizedCategory = category == null ? "" : category.toLowerCase();
+
+        for (Product product : products) {
+            String productCategory = product.getCategory();
+            if (productCategory != null && productCategory.toLowerCase().equals(normalizedCategory)) {
+                matches.add(product);
+            }
+        }
+        return matches;
+    }
 }

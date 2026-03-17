@@ -46,7 +46,23 @@ public class ProductController {
         // TODO: Implement
         return ResponseEntity.ok(productService.getAllProducts());
     }
+    /**
+     * GET /api/products/search?keyword=laptop
+     * Return products whose name contains keyword with status 200.
+     */
+    @GetMapping("/search")
+    public ResponseEntity<List<Product>> searchProducts(@RequestParam String keyword) {
+        return ResponseEntity.ok(productService.searchProductsByName(keyword));
+    }
 
+    /**
+     * GET /api/products/category/{category}
+     * Return products matching category with status 200.
+     */
+    @GetMapping("/category/{category}")
+    public ResponseEntity<List<Product>> getProductsByCategory(@PathVariable String category) {
+        return ResponseEntity.ok(productService.getProductsByCategory(category));
+    }
     /**
      * GET /api/products/{id}
      * Return the product with status 200, or 404 if not found.

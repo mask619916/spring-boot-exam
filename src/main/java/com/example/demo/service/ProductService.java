@@ -85,4 +85,17 @@ public class ProductService {
         // TODO: Delegate to repository
             return productRepository.deleteById(id);
     }
+    /**
+     * Search products by name keyword (case-insensitive).
+     */
+    public List<Product> searchProductsByName(String keyword) {
+        return productRepository.findByNameContaining(keyword);
+    }
+
+    /**
+     * Get products by category (case-insensitive).
+     */
+    public List<Product> getProductsByCategory(String category) {
+        return productRepository.findByCategory(category);
+    }
 }
